@@ -1,0 +1,14 @@
+.square {
+    background: red;
+    margin: 1px;
+    display: inline-block;
+    float: left;
+}
+
+.row {
+    clear: both;
+}
+
+.square.plane-point {
+    background: blue;
+}
