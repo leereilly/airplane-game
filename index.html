@@ -3,12 +3,46 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>Airplane</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/urljs/2.3.1/url.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
         <script src="js/main.js"></script>
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
     </head>
     <body>
-        <div class="grid">
+        <div class="bag fluid">
+            <h1>Airplane Game</h2>
+            <div class="row">
+                <div class="col">
+                    <div class="grid">
+                        Loading...
+                    </div>
+                </div>
+                <div class="col">
+		    <div class="workspace">
+			<div id="faux-terminal">
+			    <div class="background-logs">
+				<pre id="logs">
+				</pre>
+			    </div>
+			  <div class="layer"></div>
+			  <div class="overlay"></div>
+			</div>
+		    </div>
+                    <p>Select the plane orientation:</p>
+                    <select id="plane-orientation">
+                        <option>TOP</option>
+                        <option>RIGHT</option>
+                        <option>DOWN</option>
+                        <option>LEFT</option>
+                    </select>
+                </div>
+            </div>
+            <div class="waiting-overlay">
+                <div class="box"><span class="dot"></span></div>
+                <div class="waiting-text">Waiting for opponent...</div>
+            </div>
         </div>
     </body>
 </html>

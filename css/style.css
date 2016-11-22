@@ -1,8 +1,18 @@
+@import url("loader.css");
+@import url("terminal.css");
+@import url("https://cdn.rawgit.com/IonicaBizau/bag.css/gh-pages/dist/bag.all.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/gridly/1.4.5/prefixed/gridly.min.css");
+
+.grid {
+    display: inline-block;
+}
 .square {
     background: red;
     margin: 1px;
     display: inline-block;
     float: left;
+    position: relative;
+    cursor: crosshair;
 }
 
 .row {
@@ -11,4 +21,72 @@
 
 .square.plane-point {
     background: blue;
+}
+
+.square.opponent-plane-point {
+    background: yellow;
+}
+
+.square.empty-point {
+    opacity: .2;
+}
+
+.square.my-plane-hit {
+    background: orange;
+}
+
+.square.hit-by-opponent::after {
+    content: "\d7";
+    position: relative;
+    top: -50%;
+    text-align: center;
+}
+
+.waiting-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #E0E0CE;
+}
+
+.square.hit-by-opponent::after {
+    content: "\d7";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 28px;
+    color: #fff;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.box {
+    transform: scale(0.3);
+}
+
+.msg-red {
+    color: red;
+}
+
+span.console-important {
+    color: #AD343E;
+}
+
+span.console-success {
+    color: #87A878;
+}
+
+span.console-warning {
+    color: #F2AF29;
+}
+
+span.console-info {
+    color: #E0E0CE;
+}
+
+pre#logs {
+    background: black;
+    padding: 21px;
+    word-break: break-word;
 }
