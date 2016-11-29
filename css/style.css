@@ -22,7 +22,7 @@ pre {
     display: inline-block;
 }
 .square {
-    background: #f1c40f;
+    background: #2ecc71;
     margin: 1px;
     display: inline-block;
     float: left;
@@ -35,11 +35,11 @@ pre {
 }
 
 .square.plane-point {
-    background: #c0392b;
+    background: #f1c40f;
 }
 
 .square.opponent-plane-point {
-    background: yellow;
+    background: #f1c40f;
 }
 
 .square.empty-point {
@@ -47,7 +47,7 @@ pre {
 }
 
 .square.my-plane-hit {
-    background: orange;
+    background: #c0392b;
 }
 
 .square.hit-by-opponent::after {

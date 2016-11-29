@@ -9,6 +9,17 @@ $(function () {
         messagingSenderId: "95300595436"
     };
 
+    var SOUNDS = {
+        GAME_ENDED: new Audio("sounds/game-ended.wav"),
+        YOU_HIT: new Audio("sounds/you-hit.wav"),
+        YOU_HAVE_BEEN_HIT: new Audio("sounds/you-have-been-hit.wav"),
+        MOVE: new Audio("sounds/move.wav"),
+    };
+
+    function playSound(type) {
+        type.play()
+    }
+
     var SIZE = [20, 20];
     var SQUARE_SIZE = 20;
     var $grid = $(".grid");
@@ -137,22 +148,27 @@ $(function () {
         hideWaiting();
         $(".square").css({ cursor: "default" });
         if (youWon === true) {
-	    swal(
-		'Good job!',
-		'You won!',
-		'success'
-	    ).then(function () {
+	    swal({
+                type: "success",
+                title: 'Good job!',
+		text: 'You won!',
+                allowOutsideClick: false,
+                confirmButtonText: "Play again."
+            }).then(function () {
                 location.reload();
             });
         } else if (youWon === false) {
-	    swal(
-		'Whoups!',
-		'You lost!',
-		'error'
-	    ).then(function () {
+	    swal({
+                type: "error",
+                title: 'Whoups!',
+		text: 'You lost.',
+                allowOutsideClick: false,
+                confirmButtonText: "Try again."
+            }).then(function () {
                 location.reload();
             });
         }
+        playSound(SOUNDS.GAME_ENDED);
     }
 
     function startGame() {
@@ -174,7 +190,13 @@ $(function () {
                 });
             } else {
                 showWaiting();
+                if (data.is_plane) {
+                    playSound(SOUNDS.YOU_HIT);
+                } else {
+                    playSound(SOUNDS.MOVE);
+                }
             }
+
             sq.addClass(data.is_plane ? "opponent-plane-point" : "empty-point");
         });
 
@@ -189,6 +211,12 @@ $(function () {
             if (isCabin) {
                 log("Aircraft cabin was hit. You lost.", "important");
                 youWon = false;
+            } else {
+                if (is_plane) {
+                    playSound(SOUNDS.YOU_HAVE_BEEN_HIT);
+                } else {
+                    playSound(SOUNDS.MOVE);
+                }
             }
             sendResponse(data.x, data.y, is_plane, isCabin);
             hideWaiting();
@@ -212,8 +240,8 @@ $(function () {
         if (snap.key === "player_2" || snap.key === "player_1") {
             log(({ player_1: "Player 1", player_2: "Player 2"})[snap.key] + " joined.", "info");
             if (++players === 2) {
-                startGame();
                 swal.close();
+                startGame();
             }
         }
     });
@@ -233,7 +261,6 @@ $(function () {
             };
 
             currentPlayerRef = thisGameRef.child(PLAYER_NAME);
-            thisGameRef.update(data);
             swal({
                 title: 'Share the url with your best friend. <3',
                 html: [
@@ -241,6 +268,7 @@ $(function () {
                 ].join(""),
                 allowOutsideClick: false,
             });
+            thisGameRef.update(data);
             $(".share-url").focus().click();
         }).catch(function (e) {
           console.error(e);
@@ -352,19 +380,19 @@ $(function () {
 
     $(window).resize(updateOverlaySize);
 
+    var msgPresentation =  "This is a two-player game. Each player has an airplane. Before the game starts, you have to place your airplane on the map."
     var initialMessages = [
         "╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮"
       , "┊   Airplane   ┊"
       , "┊  ╌╌╌╌╌╌╌╌╌╌  ┊"
       , "┊   Welcome!   ┊"
       , "╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯"
-      , "This is a two-player game. Each player has an airplane."
-      , "Before the game starts, you have to place your airplane on the map."
+      , msgPresentation
     ];
 
     log(initialMessages.join("\n"), "info");
     swal({
-        title: 'Please choose the plane orientation and then tap/click the yellow square where you want to place the plane.',
+        title: msgPresentation + '<br><br> Please choose the plane orientation and then tap/click the yellow square where you want to place the plane.',
         html: [
             "<img src='img/orientations/top.png' data-orientation='TOP'>"
           , "<img src='img/orientations/right.png' data-orientation='RIGHT'>"
