@@ -4,6 +4,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/gridly/1.4.5/prefixed/gridly.min.css");
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css');
 
 body {
     background: #2c3e50;
@@ -166,4 +167,12 @@ input.share-url {
 
 .text-center {
     text-align: center;
+}
+
+a {
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+    margin: 0;
 }
