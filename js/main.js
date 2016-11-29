@@ -167,6 +167,16 @@ $(function () {
             }).then(function () {
                 location.reload();
             });
+        } else {
+	    swal({
+                type: "error",
+                title: 'Whoups!',
+		text: 'Your opponent left the game.',
+                allowOutsideClick: false,
+                confirmButtonText: "Play again."
+            }).then(function () {
+                location.reload();
+            });
         }
         playSound(SOUNDS.GAME_ENDED);
     }
