@@ -1,9 +1,9 @@
 /* Thanks! http://blog.carbonfive.com/2015/01/07/vintage-terminal-effect-in-css3/ */
 .workspace {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 140px);
   background: #fff;
-  margin-top: -14px;
+  overflow: auto;
 }
 
 .background-logs {
@@ -20,6 +20,7 @@
   height: 100%;
   z-index: 100;
   pointer-events: none;
+  top: -14px;
 }
 #faux-terminal:before {
   content: '';
@@ -234,5 +235,3 @@
     width: 0;
   }
 }
-
-
