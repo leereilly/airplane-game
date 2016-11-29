@@ -174,6 +174,7 @@ $(function () {
     function startGame() {
         gameIsStarted = true;
         log("The game is starting. Any of you can start.", "success");
+        playSound(SOUNDS.MOVE);
         opponentRef = thisGameRef.child(PLAYER_NAME === "player_1" ? "player_2" : "player_1");
         currentPlayerRef.child("received").on("child_added", function (c) {
             if (c.key === "_") { return; }
