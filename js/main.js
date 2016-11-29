@@ -365,6 +365,9 @@ $(function () {
 
         planePoints = points;
         invalidPlanePosition = !!points.filter(function (c) {
+            if (c[0] < 0 || c[1] < 0) {
+                return true;
+            }
             return !getSquare(c).addClass("plane-point").length;
         }).length;
     }
