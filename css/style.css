@@ -2,12 +2,27 @@
 @import url("terminal.css");
 @import url("https://cdn.rawgit.com/IonicaBizau/bag.css/gh-pages/dist/bag.all.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/gridly/1.4.5/prefixed/gridly.min.css");
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.min.css');
+
+body {
+    background: #2c3e50;
+    color: #ecf0f1;
+}
+
+body, pre, .swal2-modal .swal2-title, button, .swal2-modal .swal2-content, input {
+    font-family: 'Roboto Mono', monospace;
+}
+
+pre {
+    font-size: 0.8em;
+}
 
 .grid {
     display: inline-block;
 }
 .square {
-    background: red;
+    background: #f1c40f;
     margin: 1px;
     display: inline-block;
     float: left;
@@ -20,7 +35,7 @@
 }
 
 .square.plane-point {
-    background: blue;
+    background: #c0392b;
 }
 
 .square.opponent-plane-point {
@@ -89,4 +104,62 @@ pre#logs {
     background: black;
     padding: 21px;
     word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.blink {
+    animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+.loading-text-wrapper {
+    position: fixed;
+    background: #c0392b;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+}
+
+.loading-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ecf0f1;
+}
+
+.hide { display: none; }
+
+button.choose-plane-location {
+    background: #ecf0f1;
+    border: none;
+    padding: 6px;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+.swal2-modal .swal2-title {
+    font-size: 0.8em !important;
+    line-height: 21px;
+}
+
+img[data-orientation] {
+    width: 20%;
+    margin: 3px;
+    vertical-align: middle;
+    opacity: 1;
+    cursor: pointer;
+}
+
+input.share-url {
+    border: 3px solid #3085d6;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 18px;
 }

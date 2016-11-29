@@ -5,6 +5,7 @@
         <title>Airplane</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/urljs/2.3.1/url.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
         <script src="js/main.js"></script>
@@ -14,12 +15,12 @@
         <div class="bag fluid">
             <h1>Airplane Game</h2>
             <div class="row">
-                <div class="col">
+                <div class="col col-half">
                     <div class="grid">
                         Loading...
                     </div>
                 </div>
-                <div class="col">
+                <div class="col col-half">
 		    <div class="workspace">
 			<div id="faux-terminal">
 			    <div class="background-logs">
@@ -30,8 +31,7 @@
 			  <div class="overlay"></div>
 			</div>
 		    </div>
-                    <p>Select the plane orientation:</p>
-                    <select id="plane-orientation">
+                    <select id="plane-orientation" class="hide">
                         <option>TOP</option>
                         <option>RIGHT</option>
                         <option>DOWN</option>
@@ -42,6 +42,11 @@
             <div class="waiting-overlay">
                 <div class="box"><span class="dot"></span></div>
                 <div class="waiting-text">Waiting for opponent...</div>
+            </div>
+            <div class="loading-text-wrapper">
+                <div class="loading-text blink">
+                    Loading...
+                </div>
             </div>
         </div>
     </body>

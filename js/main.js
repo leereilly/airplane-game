@@ -39,7 +39,9 @@ $(function () {
     $grid.on("mouseenter", ".square", prepareToChoosePlanePosition);
 
     function renderGame() {
-        var SQUARE_SIZE = $grid.parent().width() / SIZE[0] - 2;
+        var SQUARE_SIZE = $grid.parent().width() / SIZE[0] - 4;
+
+        $(".loading-text-wrapper").fadeOut();
 
         $grid.empty();
         for (var y = 0; y < SIZE[1]; ++y) {
@@ -59,10 +61,14 @@ $(function () {
         $(".square").click(function () {
             if (choosingPlanePosition) {
                 if (invalidPlanePosition) {
-                    return alert("Invalid plane position.");
+		    return swal(
+			'Oops...',
+			'Invalid plane position.',
+			'error'
+		    );
                 }
                 choosingPlanePosition = false;
-                $planeOrientation.add($planeOrientation.prev()).remove();
+                $planeOrientation.remove();
                 log("You've entered in the game.", "success");
                 registerPlayer();
                 return;
@@ -128,11 +134,24 @@ $(function () {
 
     function endGame() {
         gameEnded = true;
+        hideWaiting();
         $(".square").css({ cursor: "default" });
         if (youWon === true) {
-            alert("You won!");
+	    swal(
+		'Good job!',
+		'You won!',
+		'success'
+	    ).then(function () {
+                location.reload();
+            });
         } else if (youWon === false) {
-            alert("You lost!");
+	    swal(
+		'Whoups!',
+		'You lost!',
+		'error'
+	    ).then(function () {
+                location.reload();
+            });
         }
     }
 
@@ -153,9 +172,10 @@ $(function () {
                         reason: "The game was ended."
                     }
                 });
+            } else {
+                showWaiting();
             }
             sq.addClass(data.is_plane ? "opponent-plane-point" : "empty-point");
-            showWaiting();
         });
 
         currentPlayerRef.child("attacked").on("child_added", function (c) {
@@ -193,6 +213,7 @@ $(function () {
             log(({ player_1: "Player 1", player_2: "Player 2"})[snap.key] + " joined.", "info");
             if (++players === 2) {
                 startGame();
+                swal.close();
             }
         }
     });
@@ -213,6 +234,14 @@ $(function () {
 
             currentPlayerRef = thisGameRef.child(PLAYER_NAME);
             thisGameRef.update(data);
+            swal({
+                title: 'Share the url with your best friend. <3',
+                html: [
+                    '<input class="share-url" onClick="this.setSelectionRange(0, this.value.length)" value="' + location.href + '" />'
+                ].join(""),
+                allowOutsideClick: false,
+            });
+            $(".share-url").focus().click();
         }).catch(function (e) {
           console.error(e);
         });
@@ -322,4 +351,32 @@ $(function () {
     }
 
     $(window).resize(updateOverlaySize);
+
+    var initialMessages = [
+        "╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮"
+      , "┊   Airplane   ┊"
+      , "┊  ╌╌╌╌╌╌╌╌╌╌  ┊"
+      , "┊   Welcome!   ┊"
+      , "╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯"
+      , "This is a two-player game. Each player has an airplane."
+      , "Before the game starts, you have to place your airplane on the map."
+    ];
+
+    log(initialMessages.join("\n"), "info");
+    swal({
+        title: 'Please choose the plane orientation and then tap/click the yellow square where you want to place the plane.',
+        html: [
+            "<img src='img/orientations/top.png' data-orientation='TOP'>"
+          , "<img src='img/orientations/right.png' data-orientation='RIGHT'>"
+          , "<img src='img/orientations/bottom.png' data-orientation='DOWN'>"
+          , "<img src='img/orientations/left.png' data-orientation='LEFT'>"
+        ].join(""),
+        allowOutsideClick: false,
+    });
+
+    $("button.swal2-confirm.swal2-styled").hide();
+    $("[data-orientation]").click(function () {
+        $planeOrientation.val($(this).data("orientation")).change();
+        $("button.swal2-confirm.swal2-styled").click();
+    });
 })
