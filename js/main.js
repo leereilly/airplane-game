@@ -396,7 +396,7 @@ $(function () {
 
     log(initialMessages.join("\n"), "info");
     swal({
-        title: msgPresentation + '<br><br> Please choose the plane orientation and then tap/click the yellow square where you want to place the plane.',
+        title: msgPresentation + '<br><br> Please choose the plane orientation and then tap/click the green square where you want to place the plane.',
         html: [
             "<img src='img/orientations/top.png' data-orientation='TOP'>"
           , "<img src='img/orientations/right.png' data-orientation='RIGHT'>"
