@@ -6,8 +6,8 @@ You can see below the API reference of this module.
 Two player game to target the opponent airplane.
 
 #### Params
-- **Number** `a`: Param descrpition.
-- **Number** `b`: Param descrpition.
+- **Number** `a`: Param description.
+- **Number** `b`: Param description.
 
 #### Return
 - **Number** Return description.
